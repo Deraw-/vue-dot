@@ -39,6 +39,7 @@
 			:value="value"
 			@input="menu = false"
 			@blur="date = parseDate(dateFormatted)"
+			@keyup.enter="date = parseDate(dateFormatted)"
 		>
 			<VBtn
 				v-if="!appendIcon"
@@ -49,7 +50,7 @@
 				class="ma-0"
 				@click="menu = true"
 			>
-				<XSvgIcon
+				<SvgIcon
 					:color="appendIconColor"
 					icon="calendar"
 				/>
@@ -64,13 +65,13 @@
 				class="ma-0"
 				@click="appendIconCb"
 			>
-				<XSvgIcon
+				<SvgIcon
 					:icon="appendIcon"
 					:color="appendIconColor"
 				/>
 			</VBtn>
 
-			<XSvgIcon
+			<SvgIcon
 				v-else
 				slot="prepend"
 				:icon="appendIcon"
@@ -81,8 +82,8 @@
 
 		<VMenu
 			:ref="menuRef"
-			:close-on-content-click="false"
 			v-model="menu"
+			:close-on-content-click="false"
 			:nudge-right="40"
 			:nudge-bottom="55"
 			:attach="`.activator-icon-${menuRef}`"
@@ -141,7 +142,7 @@
 	import SvgIcon from '@/components/SvgIcon.vue';
 
 	export default Vue.extend({
-		name: 'XDatePicker',
+		name: 'DatePicker',
 		components: {
 			SvgIcon
 		},
@@ -517,7 +518,7 @@
 				}
 			},
 			date(val: string) {
-				this.dateFormatted = this.formatDate(this.date);
+				this.computedDateFormatted = this.formatDate(this.date);
 			},
 			computedDateFormatted() {
 				this.$emit('change', this.formatDateForReturn(this.date));
